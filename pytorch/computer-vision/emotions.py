@@ -60,7 +60,7 @@ t = transforms.Compose([
     transforms.Normalize(mean=[0.5], std=[0.5])
 ])
 
-path = "/kaggle/input/human-face-emotions/Data"
+path = "datasets/Emotions"
 data = datasets.ImageFolder(path, transform=t)
 
 all_images = []

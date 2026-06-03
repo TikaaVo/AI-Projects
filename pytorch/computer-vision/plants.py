@@ -69,7 +69,7 @@ t = transforms.Compose([
     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 ])
 
-path = "/kaggle/input/new-plant-diseases-dataset/New Plant Diseases Dataset(Augmented)/New Plant Diseases Dataset(Augmented)"
+path = "datasets/new plant diseases dataset(augmented)/New Plant Diseases Dataset(Augmented)"
 
 train = datasets.ImageFolder(path + "/train", transform=t)
 test = datasets.ImageFolder(path + "/valid", transform=t)
