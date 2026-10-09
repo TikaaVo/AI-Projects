@@ -13,6 +13,9 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
+import torch_tensorrt
+
+torch.set_float32_matmul_precision("high")
 
 if torch.cuda.is_available():
     device = torch.device("cuda")
@@ -69,7 +72,7 @@ t = transforms.Compose([
     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 ])
 
-path = "datasets/new plant diseases dataset(augmented)/New Plant Diseases Dataset(Augmented)"
+path = "~/Documents/AI-projects/datasets/new plant diseases dataset(augmented)/New Plant Diseases Dataset(Augmented)"
 
 train = datasets.ImageFolder(path + "/train", transform=t)
 test = datasets.ImageFolder(path + "/valid", transform=t)
@@ -83,6 +86,7 @@ if torch.cuda.device_count() > 1:
     model = nn.DataParallel(model)
 
 model = model.to(device)
+model = torch.compile(model, backend="torch_tensorrt")
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
